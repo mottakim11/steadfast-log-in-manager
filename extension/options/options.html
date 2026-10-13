@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steadfast Login Manager - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="settings-box">
+    <div class="header">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div>
+        <h2>Extension Settings</h2>
+        <p>Connect your browser with the Admin Server</p>
+      </div>
+    </div>
+
+    <div id="statusAlert" class="alert hidden"></div>
+
+    <form id="settingsForm">
+      <div class="form-group">
+        <label for="serverUrl">Admin Server URL</label>
+        <input type="url" id="serverUrl" placeholder="https://your-admin-domain.com or http://localhost:3000" required>
+        <span class="hint">The web address of your central Admin Server panel.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="accessToken">Office Secret Key</label>
+        <input type="password" id="accessToken" placeholder="sflm_off_xxxxxxxxxxxxxxxx" required autocomplete="off">
+        <span class="hint">Secret key of this office/branch. The extension will strictly show only this office's login buttons.</span>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="saveBtn" class="btn btn-primary">
+          <span class="btn-text">Test Connection & Save</span>
+          <span class="spinner hidden"></span>
+        </button>
+      </div>
+    </form>
+
+    <div class="footer-info">
+      <div class="connection-status">
+        <span class="dot" id="statusDot"></span>
+        <span id="connectionText">Checking configuration...</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

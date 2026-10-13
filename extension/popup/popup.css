@@ -1,0 +1,263 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  width: 275px;
+  background: #ffffff;
+  color: #111827;
+  overflow: hidden;
+}
+
+.popup-card {
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image 3 Header: #00a884 emerald green */
+.popup-header {
+  background: #00a884;
+  color: #ffffff;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+
+.dot.connected {
+  background: #ffffff;
+  box-shadow: 0 0 6px #ffffff;
+}
+
+.dot.disconnected {
+  background: #ef4444;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.15s;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Body / Accounts list (Image 3) */
+.popup-body {
+  padding: 14px 14px 10px 14px;
+  background: #ffffff;
+}
+
+.office-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.btn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Image 3 Button Style: White with #00a884 border */
+.account-btn {
+  background: #ffffff;
+  border: 1.5px solid #00a884;
+  border-radius: 6px;
+  color: #111827;
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  outline: none;
+  width: 100%;
+}
+
+.account-btn:hover {
+  background: #00a884;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 168, 132, 0.25);
+}
+
+.account-btn:active {
+  transform: translateY(0);
+}
+
+.status-line {
+  font-size: 0.82rem;
+  color: #4b5563;
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.portal-link-btn {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #00a884;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.portal-link-btn:hover {
+  background: #e5e7eb;
+  color: #008f70;
+}
+
+/* Image 3 Footer: Green bar with Developed by Mottakim */
+.popup-footer {
+  background: #00a884;
+  padding: 7px 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.popup-footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.popup-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Setup / Config View */
+.config-view {
+  padding: 14px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.config-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.form-group label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.input-field {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.82rem;
+  color: #0f172a;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.input-field:focus {
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+}
+
+.btn-save {
+  background: #00a884;
+  border: none;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.15s;
+}
+
+.btn-save:hover {
+  background: #008f70;
+}
+
+.alert-msg {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.alert-msg.error {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.alert-msg.success {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #86efac;
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.hidden {
+  display: none !important;
+}

@@ -252,6 +252,30 @@ app.post('/api/admin/settings', requireAdmin, (req, res) => {
   res.json({ ok: true, message: 'Settings saved successfully', settings: db.getAllSettings() });
 });
 
+// Database Backup & Restore Endpoints
+app.get('/api/admin/backup/export', requireAdmin, (req, res) => {
+  const data = db.exportDatabaseJson();
+  if (!data) {
+    return res.status(500).json({ ok: false, error: 'Could not export database' });
+  }
+  const dateStr = new Date().toISOString().slice(0, 10);
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', `attachment; filename="steadfast_backup_${dateStr}.json"`);
+  res.json(data);
+});
+
+app.post('/api/admin/backup/import', requireAdmin, (req, res) => {
+  const { backupData } = req.body || {};
+  if (!backupData || (!backupData.offices && !backupData.accounts)) {
+    return res.status(400).json({ ok: false, error: 'Invalid backup format' });
+  }
+  const ok = db.importDatabaseJson(backupData);
+  if (!ok) {
+    return res.status(500).json({ ok: false, error: 'Failed to restore database backup' });
+  }
+  res.json({ ok: true, message: 'Database backup restored successfully!' });
+});
+
 // ---------------- Extension Client Endpoints ---------------- //
 
 // Ping endpoint for testing extension connectivity

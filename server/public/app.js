@@ -635,6 +635,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---------------- Backup & Restore Handlers ---------------- //
+  const downloadBackupBtn = document.getElementById('downloadBackupBtn');
+  if (downloadBackupBtn) {
+    downloadBackupBtn.addEventListener('click', async () => {
+      try {
+        const token = localStorage.getItem('sflm_admin_token');
+        const res = await fetch('/api/admin/backup/export', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!res.ok) throw new Error('Failed to export backup');
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `steadfast_backup_${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+        showToast('Database backup downloaded successfully!');
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+  }
+
+  const restoreBackupInput = document.getElementById('restoreBackupInput');
+  if (restoreBackupInput) {
+    restoreBackupInput.addEventListener('change', async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!confirm(`Restore database from "${file.name}"? This will sync all offices and accounts.`)) {
+        restoreBackupInput.value = '';
+        return;
+      }
+
+      try {
+        const text = await file.text();
+        const backupData = JSON.parse(text);
+        await api('/api/admin/backup/import', {
+          method: 'POST',
+          body: JSON.stringify({ backupData })
+        });
+        showToast('Database restored successfully!');
+        loadOffices().then(() => {
+          loadAccounts();
+          loadTokens();
+          loadStats();
+          loadSettings();
+        });
+      } catch (err) {
+        showToast('Failed to restore backup: ' + err.message, 'error');
+      } finally {
+        restoreBackupInput.value = '';
+      }
+    });
+  }
+
   // Modal helpers
   function openModal(id) {
     document.getElementById(id).classList.remove('hidden');

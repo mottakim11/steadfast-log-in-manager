@@ -298,6 +298,29 @@
           <button type="submit" class="btn btn-primary">Save Settings</button>
         </form>
       </div>
+
+      <div class="card settings-card" style="margin-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 class="card-title" style="margin: 0;">Database Backup & Sync</h3>
+          <span class="badge badge-success">Auto-Sync Active</span>
+        </div>
+        <p class="help-text" style="margin-bottom: 16px;">
+          All offices, accounts (with encrypted passwords), and extension tokens are continuously mirrored in real-time. You can download a complete backup JSON anytime, or restore it onto any fresh deployment.
+        </p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <button id="downloadBackupBtn" type="button" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Database Backup (.json)</span>
+          </button>
+
+          <label class="btn btn-secondary" style="cursor: pointer; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Restore From Backup (.json)</span>
+            <input type="file" id="restoreBackupInput" accept=".json" style="display: none;">
+          </label>
+        </div>
+      </div>
     </section>
   </main>
 

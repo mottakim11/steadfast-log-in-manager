@@ -49,6 +49,99 @@ function loadJsonStore() {
   }
 }
 
+function dumpSqliteToJson() {
+  if (useJsonFallback || !sqliteDb) return;
+  try {
+    const settingsRows = sqliteDb.prepare('SELECT key, value FROM settings').all();
+    const settings = {};
+    for (const row of settingsRows) {
+      settings[row.key] = row.value;
+    }
+    const offices = sqliteDb.prepare('SELECT * FROM offices').all();
+    const accounts = sqliteDb.prepare('SELECT * FROM accounts').all();
+    const tokens = sqliteDb.prepare('SELECT * FROM tokens').all();
+    const audit_logs = sqliteDb.prepare('SELECT * FROM audit_logs ORDER BY id DESC LIMIT 500').all();
+
+    const data = {
+      settings,
+      offices,
+      accounts,
+      tokens,
+      audit_logs
+    };
+    const tempPath = `${JSON_DB_PATH}.tmp`;
+    fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8');
+    fs.renameSync(tempPath, JSON_DB_PATH);
+  } catch (e) {
+    console.error('Failed to sync database to JSON:', e.message);
+  }
+}
+
+function exportDatabaseJson() {
+  if (useJsonFallback) return jsonStore;
+  if (!sqliteDb) return null;
+  dumpSqliteToJson();
+  if (fs.existsSync(JSON_DB_PATH)) {
+    try {
+      return JSON.parse(fs.readFileSync(JSON_DB_PATH, 'utf8'));
+    } catch (e) {
+      console.error('Error reading exported JSON:', e);
+    }
+  }
+  return null;
+}
+
+function importDatabaseJson(jsonData) {
+  if (!jsonData || typeof jsonData !== 'object') return false;
+  if (useJsonFallback) {
+    jsonStore = {
+      settings: jsonData.settings || {},
+      offices: jsonData.offices || [],
+      accounts: jsonData.accounts || [],
+      tokens: jsonData.tokens || [],
+      audit_logs: jsonData.audit_logs || []
+    };
+    saveJsonStore();
+    return true;
+  }
+  if (!sqliteDb) return false;
+
+  try {
+    if (jsonData.settings) {
+      for (const [k, v] of Object.entries(jsonData.settings)) {
+        setSetting(k, v);
+      }
+    }
+    if (jsonData.offices && Array.isArray(jsonData.offices)) {
+      for (const off of jsonData.offices) {
+        sqliteDb.prepare(`INSERT OR REPLACE INTO offices (id, name, code, secret_key, status, created_at) VALUES (?, ?, ?, ?, ?, ?)`).run(
+          off.id, off.name, off.code || '', off.secret_key || ('sflm_off_' + crypto.randomBytes(16).toString('hex')), off.status || 'active', off.created_at || new Date().toISOString()
+        );
+      }
+    }
+    if (jsonData.accounts && Array.isArray(jsonData.accounts)) {
+      for (const acc of jsonData.accounts) {
+        sqliteDb.prepare(`INSERT OR REPLACE INTO accounts (id, office_id, display_name, email_cipher, password_cipher, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).run(
+          acc.id, acc.office_id, acc.display_name, acc.email_cipher, acc.password_cipher, acc.status || 'active', acc.created_at || new Date().toISOString(), acc.updated_at || new Date().toISOString()
+        );
+      }
+    }
+    if (jsonData.tokens && Array.isArray(jsonData.tokens)) {
+      for (const tok of jsonData.tokens) {
+        sqliteDb.prepare(`INSERT OR REPLACE INTO tokens (id, token, name, allowed_office_ids, status, created_at) VALUES (?, ?, ?, ?, ?, ?)`).run(
+          tok.id, tok.token, tok.name, tok.allowed_office_ids || 'all', tok.status || 'active', tok.created_at || new Date().toISOString()
+        );
+      }
+    }
+    dumpSqliteToJson();
+    return true;
+  } catch (e) {
+    console.error('Error importing JSON database:', e);
+    return false;
+  }
+}
+
+
 function init() {
   if (useJsonFallback) {
     loadJsonStore();
@@ -195,6 +288,8 @@ function initDefaultSettings() {
       allowed_office_ids: 'all'
     });
   }
+
+  dumpSqliteToJson();
 }
 
 // ---------------- Settings ---------------- //
@@ -216,6 +311,7 @@ function setSetting(key, value) {
     INSERT INTO settings (key, value) VALUES (?, ?)
     ON CONFLICT(key) DO UPDATE SET value = excluded.value
   `).run(key, String(value));
+  dumpSqliteToJson();
 }
 
 function getAllSettings() {
@@ -256,6 +352,7 @@ function createOffice({ id, name, code, secret_key, status = 'active' }) {
     INSERT INTO offices (id, name, code, secret_key, status, created_at)
     VALUES (?, ?, ?, ?, ?, ?)
   `).run(officeId, name, code || '', officeSecretKey, status, createdAt);
+  dumpSqliteToJson();
   return getOffice(officeId);
 }
 
@@ -286,6 +383,7 @@ function updateOffice(id, { name, code, secret_key, status }) {
     status !== undefined ? status : current.status,
     id
   );
+  dumpSqliteToJson();
   return getOffice(id);
 }
 
@@ -301,6 +399,7 @@ function regenerateOfficeSecretKey(id) {
   const current = getOffice(id);
   if (!current) return null;
   sqliteDb.prepare('UPDATE offices SET secret_key = ? WHERE id = ?').run(newKey, id);
+  dumpSqliteToJson();
   return getOffice(id);
 }
 
@@ -313,6 +412,7 @@ function deleteOffice(id) {
   }
   sqliteDb.prepare('DELETE FROM accounts WHERE office_id = ?').run(id);
   sqliteDb.prepare('DELETE FROM offices WHERE id = ?').run(id);
+  dumpSqliteToJson();
   return true;
 }
 
@@ -429,7 +529,7 @@ function createAccount({ office_id, display_name, email, password, status = 'act
     INSERT INTO accounts (id, office_id, display_name, email_cipher, password_cipher, status, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `).run(id, office_id, display_name, emailCipher, passwordCipher, status, now, now);
-
+  dumpSqliteToJson();
   return getAccount(id);
 }
 
@@ -470,7 +570,7 @@ function updateAccount(id, { office_id, display_name, email, password, status })
       updated_at = ?
     WHERE id = ?
   `).run(finalOfficeId, finalDisplayName, finalEmailCipher, finalPasswordCipher, finalStatus, now, id);
-
+  dumpSqliteToJson();
   return getAccount(id);
 }
 
@@ -481,6 +581,7 @@ function deleteAccount(id) {
     return true;
   }
   sqliteDb.prepare('DELETE FROM accounts WHERE id = ?').run(id);
+  dumpSqliteToJson();
   return true;
 }
 
@@ -543,7 +644,7 @@ function createToken({ name, allowed_office_ids = 'all', status = 'active' }) {
     INSERT INTO tokens (id, token, name, allowed_office_ids, status, created_at)
     VALUES (?, ?, ?, ?, ?, ?)
   `).run(id, token, name, allowed_office_ids, status, now);
-
+  dumpSqliteToJson();
   return { id, token, name, allowed_office_ids, status, created_at: now };
 }
 
@@ -572,6 +673,7 @@ function updateToken(id, { name, allowed_office_ids, status }) {
     status !== undefined ? status : current.status,
     id
   );
+  dumpSqliteToJson();
   return sqliteDb.prepare('SELECT * FROM tokens WHERE id = ?').get(id);
 }
 
@@ -582,6 +684,7 @@ function deleteToken(id) {
     return true;
   }
   sqliteDb.prepare('DELETE FROM tokens WHERE id = ?').run(id);
+  dumpSqliteToJson();
   return true;
 }
 
@@ -641,5 +744,8 @@ module.exports = {
   updateToken,
   deleteToken,
   addAuditLog,
-  getAuditLogs
+  getAuditLogs,
+  dumpSqliteToJson,
+  exportDatabaseJson,
+  importDatabaseJson
 };

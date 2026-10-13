@@ -152,8 +152,35 @@ function initDefaultSettings() {
     setSetting('system_title', 'Steadfast Secure Auto Login');
   }
 
-  // Create default office and token if none exist
-  const offices = getOffices();
+  // Restore from database.json if database is empty but database.json exists
+  let offices = getOffices();
+  if (offices.length === 0 && fs.existsSync(JSON_DB_PATH)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(JSON_DB_PATH, 'utf8'));
+      if (data.offices && data.offices.length > 0) {
+        console.log('Restoring database from database.json backup...');
+        if (!useJsonFallback && sqliteDb) {
+          for (const off of (data.offices || [])) {
+            sqliteDb.prepare(`INSERT OR REPLACE INTO offices (id, name, code, secret_key, status, created_at) VALUES (?, ?, ?, ?, ?, ?)`).run(off.id, off.name, off.code || '', off.secret_key || '', off.status || 'active', off.created_at || new Date().toISOString());
+          }
+          for (const acc of (data.accounts || [])) {
+            sqliteDb.prepare(`INSERT OR REPLACE INTO accounts (id, office_id, display_name, email_cipher, password_cipher, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).run(acc.id, acc.office_id, acc.display_name, acc.email_cipher, acc.password_cipher, acc.status || 'active', acc.created_at || new Date().toISOString(), acc.updated_at || new Date().toISOString());
+          }
+          for (const tok of (data.tokens || [])) {
+            sqliteDb.prepare(`INSERT OR REPLACE INTO tokens (id, token, name, allowed_office_ids, status, created_at) VALUES (?, ?, ?, ?, ?, ?)`).run(tok.id, tok.token, tok.name, tok.allowed_office_ids || 'all', tok.status || 'active', tok.created_at || new Date().toISOString());
+          }
+          for (const [k, v] of Object.entries(data.settings || {})) {
+            setSetting(k, v);
+          }
+        }
+        offices = getOffices();
+      }
+    } catch (e) {
+      console.warn('Could not restore from database.json:', e.message);
+    }
+  }
+
+  // Create default office and token only if still empty
   if (offices.length === 0) {
     const defaultOfficeId = 'office_' + Date.now();
     createOffice({

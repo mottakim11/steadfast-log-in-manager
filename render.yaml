@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: steadfast-login-manager
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production

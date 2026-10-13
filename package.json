@@ -1,0 +1,14 @@
+{
+  "name": "steadfast-login-manager",
+  "version": "3.0.0",
+  "description": "Steadfast Secure Login Manager Backend & Admin Portal",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "npm --prefix server install",
+    "postinstall": "npm --prefix server install"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

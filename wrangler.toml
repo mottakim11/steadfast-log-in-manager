@@ -1,0 +1,11 @@
+name = "steadfast-log-in-manager"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "server/public"
+binding = "ASSETS"
+
+# Fallback for Single Page Application routing
+[assets.not_found_handling]
+mode = "single-page-application"

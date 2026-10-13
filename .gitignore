@@ -16,6 +16,8 @@ server/data/*.db-shm
 *.log
 npm-debug.log*
 
-# OS Files
+# OS Files & Binaries
 .DS_Store
 Thumbs.db
+cloudflared.exe
+

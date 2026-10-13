@@ -261,82 +261,21 @@
     });
   }
 
-  // ---------------- Shield Trigger with 2-3 Second Hold to Open (Image 2) ---------------- //
-  function renderShieldTrigger() {
+  // ---------------- Simple Minimized Restore Button (Only if user clicks Close) ---------------- //
+  function renderMinimizedBtn() {
     container.innerHTML = `
-      <div class="sslm-shield-box" title="Hold for 2-3 seconds to open Steadfast Login Manager">
-        <svg class="sslm-progress-ring">
-          <circle class="sslm-progress-ring-circle" cx="30" cy="30" r="28"></circle>
+      <div class="sslm-minimized-btn" title="Click to open Steadfast Login Manager">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
         </svg>
-        <div class="sslm-shield-btn">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </div>
-        <div class="sslm-hold-tooltip">Hold 2-3s to open</div>
       </div>
     `;
-
-    const shieldBox = container.querySelector('.sslm-shield-box');
-    const ringCircle = container.querySelector('.sslm-progress-ring-circle');
-    const tooltip = container.querySelector('.sslm-hold-tooltip');
-
-    makeDraggable(container, shieldBox);
-
-    let holdTimer = null;
-    let animInterval = null;
-    const HOLD_DURATION = 2300; // 2.3 seconds
-    let startTime = 0;
-
-    function startHold(e) {
-      // Ignore right clicks
-      if (e.button && e.button !== 0) return;
-
-      startTime = Date.now();
-      tooltip.textContent = 'Keep holding...';
-      tooltip.style.opacity = '1';
-
-      // Animate progress circle
-      animInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(1, elapsed / HOLD_DURATION);
-        const offset = 176 - (176 * progress);
-        ringCircle.style.strokeDashoffset = offset;
-      }, 30);
-
-      holdTimer = setTimeout(() => {
-        clearInterval(animInterval);
-        ringCircle.style.strokeDashoffset = 0;
-        isOpen = true;
-        init(); // Open popup
-      }, HOLD_DURATION);
-    }
-
-    function cancelHold() {
-      if (holdTimer) {
-        clearTimeout(holdTimer);
-        holdTimer = null;
-      }
-      if (animInterval) {
-        clearInterval(animInterval);
-        animInterval = null;
-      }
-      ringCircle.style.strokeDashoffset = 176;
-      tooltip.textContent = 'Hold 2-3s to open';
-      tooltip.style.opacity = '';
-    }
-
-    shieldBox.addEventListener('mousedown', startHold);
-    window.addEventListener('mouseup', cancelHold);
-    shieldBox.addEventListener('mouseleave', cancelHold);
-
-    // Touch support for holding
-    shieldBox.addEventListener('touchstart', (e) => {
-      startHold(e);
-    }, { passive: true });
-    window.addEventListener('touchend', cancelHold);
-    window.addEventListener('touchcancel', cancelHold);
+    const minBtn = container.querySelector('.sslm-minimized-btn');
+    makeDraggable(container, minBtn);
+    minBtn.addEventListener('click', () => {
+      init();
+    });
   }
 
   // ---------------- Config Setup View ---------------- //
@@ -370,8 +309,7 @@
     makeDraggable(container, header);
 
     container.querySelector('.sslm-close-btn').addEventListener('click', () => {
-      isOpen = false;
-      renderShieldTrigger();
+      renderMinimizedBtn();
     });
 
     const saveBtn = container.querySelector('#sslmBtnSaveConfig');
@@ -400,7 +338,6 @@
         serverUrl = urlVal;
         accessToken = keyVal;
         chrome.storage.local.set({ serverUrl: urlVal, accessToken: keyVal }, () => {
-          isOpen = true;
           init();
         });
       } catch (err) {
@@ -457,10 +394,9 @@
     const header = container.querySelector('.sslm-popup-header');
     makeDraggable(container, header);
 
-    // Close button hides back to shield icon
+    // Close button minimizes
     container.querySelector('.sslm-close-btn').addEventListener('click', () => {
-      isOpen = false;
-      renderShieldTrigger();
+      renderMinimizedBtn();
     });
 
     // Settings button
@@ -513,19 +449,13 @@
       serverUrl = data.serverUrl || '';
       accessToken = data.accessToken || '';
 
-      // If not open yet, show the floating shield trigger (Image 2)
-      if (!isOpen) {
-        renderShieldTrigger();
-        return;
-      }
-
-      // If open but not configured, show config view
+      // Directly show config view if not configured yet
       if (!serverUrl || !accessToken) {
         renderConfigView();
         return;
       }
 
-      // Fetch accounts and render popup (Image 3)
+      // Directly fetch accounts and render popup (Image 3)
       try {
         const payload = await api('/api/extension/accounts');
         renderAccountsPopup(payload.offices || []);

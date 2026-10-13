@@ -13,37 +13,30 @@
   box-sizing: border-box;
 }
 
-/* ---------------- Shield Floating Trigger (Image 2) ---------------- */
-.sslm-shield-box {
-  position: relative;
-  width: 52px;
-  height: 52px;
-  cursor: pointer;
-}
-
-.sslm-shield-btn {
-  width: 52px;
-  height: 52px;
-  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%);
-  border-radius: 14px;
+/* ---------------- Simple Minimized Restore Icon ---------------- */
+.sslm-minimized-btn {
+  width: 44px;
+  height: 44px;
+  background: #00a884;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 18px rgba(0, 168, 132, 0.4);
   cursor: grab;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.sslm-shield-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.5);
+.sslm-minimized-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 22px rgba(0, 168, 132, 0.5);
 }
 
-.sslm-shield-btn:active {
+.sslm-minimized-btn:active {
   cursor: grabbing;
 }
+
 
 /* Circular SVG Progress Ring for 2.5s hold */
 .sslm-progress-ring {

@@ -1,0 +1,11 @@
+# Ignore node modules and local artifacts
+node_modules/
+server/node_modules/
+.git/
+.github/
+.vscode/
+
+# Ignore local binaries and databases if needed
+cloudflared.exe
+*.log
+dist/

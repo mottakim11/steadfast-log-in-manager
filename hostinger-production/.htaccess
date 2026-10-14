@@ -1,0 +1,10 @@
+# Hostinger Shared / Cloud Web Hosting LiteSpeed & Apache Proxy Configuration
+DirectoryIndex disabled
+RewriteEngine On
+
+# Allow direct access to static files if needed
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Forward all requests to local Node.js application on port 3000
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]

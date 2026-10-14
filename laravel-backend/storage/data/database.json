@@ -1,0 +1,361 @@
+{
+  "settings": {
+    "admin_username": "admin",
+    "admin_password_hash": "$2a$10$A61E/auCaOZ66xW9r0WuxO0LRPPkmFLu/fn.tkwAOli.K4.2OUqPa",
+    "jwt_secret": "accde759902cfde86e4eeea78e50db3066fef6c4cbbcfeaeca4786e018687905",
+    "chrome_web_store_url": "https://chromewebstore.google.com/",
+    "system_title": "Steadfast Secure Auto Login"
+  },
+  "offices": [
+    {
+      "id": "off_c0d51a181570",
+      "name": "Cahartala Mor",
+      "code": "RNG-1",
+      "status": "active",
+      "created_at": "2026-10-12T11:52:09.294Z",
+      "secret_key": "sflm_off_978e0d277f9adcf955b42e2c840e70b8"
+    },
+    {
+      "id": "off_b0f23f15581b",
+      "name": "Tarminal Office",
+      "code": "RNG-2",
+      "status": "active",
+      "created_at": "2026-10-12T11:52:34.400Z",
+      "secret_key": "sflm_off_7432a18c59f7e11da13a87e0f01ff9be"
+    },
+    {
+      "id": "off_cb31bb7f76b7",
+      "name": "Mulatol Office",
+      "code": "RNG-3",
+      "status": "active",
+      "created_at": "2026-10-12T11:53:06.102Z",
+      "secret_key": "sflm_off_333a45e9d85a0c8c980dbbfc23801737"
+    },
+    {
+      "id": "off_08a8fd0f721c",
+      "name": "Shapla Office",
+      "code": "RNG-4",
+      "status": "active",
+      "created_at": "2026-10-12T11:53:16.820Z",
+      "secret_key": "sflm_off_5863cff75c6b75b56898b56d2039f1c7"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc_b89825a06ee3",
+      "office_id": "off_c0d51a181570",
+      "display_name": "Vip",
+      "email_cipher": "P+Odqhs5eiA0MCSh:KDgCllXv3kLzZhkOw4nVVA==:CqeVmFa3EyLmJ0L/hxMoudKMx2Aj",
+      "password_cipher": "p2UCpbt7kzVq3n1p:mW4hh+CPYUxBSpZJYwwrYg==:Nl+9kSFqwaP+",
+      "status": "active",
+      "created_at": "2026-10-12T11:55:28.626Z",
+      "updated_at": "2026-10-12T11:55:28.626Z"
+    },
+    {
+      "id": "acc_4bb96864dc49",
+      "office_id": "off_cb31bb7f76b7",
+      "display_name": "Variant",
+      "email_cipher": "pnVHr1aPcDoHsFoG:tIKcCkmku67oougJyG+jrw==:G6hpCb5bcatZ8OKhZGFaOqZ1RhQFA/cB",
+      "password_cipher": "AcrIeBTlJbsbnHqj:EAYCMgylAUE1Z4XnaQ0+fA==:wo3qIKaER5r4cjSLiT13eA==",
+      "status": "active",
+      "created_at": "2026-10-13T10:57:45.407Z",
+      "updated_at": "2026-10-14T05:58:20.970Z"
+    },
+    {
+      "id": "acc_09cbf7fb59e7",
+      "office_id": "off_cb31bb7f76b7",
+      "display_name": "VIP",
+      "email_cipher": "fv81UpU8oUitLsa7:TcYWVDa0EVg/CUl0ZeIVDw==:+1d+YL38tGsNmlMbu4QHPZFdI84n",
+      "password_cipher": "ubA76QdRJG87xKtm:/PF1kavbCxiko1yrIQpkfA==:mi/vdpGuIKJC221NpcMmuQ==",
+      "status": "active",
+      "created_at": "2026-10-13T11:10:19.580Z",
+      "updated_at": "2026-10-14T05:58:05.379Z"
+    },
+    {
+      "id": "acc_52d9d303891c",
+      "office_id": "off_cb31bb7f76b7",
+      "display_name": "Ragular",
+      "email_cipher": "viKYOcDttAPFq7lb:QKR8gZq+yqOz8ZuAjIsmZw==:ER7mMzU6IU/RWfOHnnaPwOVOt0IVeQ==",
+      "password_cipher": "m0k0KG/D9DJohszw:h+IBfIRnhsm/E1u0tb3WRw==:vwcJiIQSmAzWeofqMpFW4w==",
+      "status": "active",
+      "created_at": "2026-10-13T11:11:23.327Z",
+      "updated_at": "2026-10-14T05:58:35.096Z"
+    }
+  ],
+  "tokens": [
+    {
+      "id": "tok_e39240094498",
+      "token": "sflm_0de980507f3d450c105563b9e9c2076e486bc4a753bc546c",
+      "name": "Default Extension Token",
+      "allowed_office_ids": "all",
+      "status": "active",
+      "created_at": "2026-10-12T11:38:05.310Z"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": 24,
+      "timestamp": "2026-10-14T06:14:22.588Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "Variant",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.69.159.178, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 23,
+      "timestamp": "2026-10-14T06:00:14.068Z",
+      "account_id": "acc_09cbf7fb59e7",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 104.23.213.99, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 22,
+      "timestamp": "2026-10-14T05:53:36.930Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "Variant",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 104.23.211.127, 10.27.213.240",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 21,
+      "timestamp": "2026-10-14T05:52:25.998Z",
+      "account_id": "acc_52d9d303891c",
+      "office_name": "Mulatol Office",
+      "display_name": "Ragular",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 104.23.213.98, 10.27.213.240",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 20,
+      "timestamp": "2026-10-14T05:52:21.635Z",
+      "account_id": "acc_52d9d303891c",
+      "office_name": "Mulatol Office",
+      "display_name": "Ragular",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.70.35.201, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 19,
+      "timestamp": "2026-10-14T05:51:28.077Z",
+      "account_id": "acc_09cbf7fb59e7",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.70.35.201, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 18,
+      "timestamp": "2026-10-14T05:50:56.076Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "Variant",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.70.34.148, 10.29.61.150",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 17,
+      "timestamp": "2026-10-14T05:50:51.184Z",
+      "account_id": "acc_52d9d303891c",
+      "office_name": "Mulatol Office",
+      "display_name": "Ragular",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.70.35.201, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 16,
+      "timestamp": "2026-10-14T05:50:43.362Z",
+      "account_id": "acc_52d9d303891c",
+      "office_name": "Mulatol Office",
+      "display_name": "Ragular",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.70.35.201, 10.31.163.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 15,
+      "timestamp": "2026-10-14T05:50:39.428Z",
+      "account_id": "acc_52d9d303891c",
+      "office_name": "Mulatol Office",
+      "display_name": "Ragular",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 172.69.159.178, 10.29.61.150",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 14,
+      "timestamp": "2026-10-14T05:50:03.022Z",
+      "account_id": "acc_09cbf7fb59e7",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "115.127.129.144, 104.23.213.98, 10.27.213.240",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 13,
+      "timestamp": "2026-10-13T11:10:37.360Z",
+      "account_id": "acc_09cbf7fb59e7",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 12,
+      "timestamp": "2026-10-13T11:02:16.709Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "Variant",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 11,
+      "timestamp": "2026-10-13T11:00:58.707Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "Variant",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 10,
+      "timestamp": "2026-10-13T11:00:04.812Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-10-13T10:59:56.903Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-10-13T10:59:42.944Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-10-13T10:59:13.163Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-10-13T10:58:55.034Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-10-13T10:58:40.387Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-10-13T10:58:29.007Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-10-13T10:58:02.592Z",
+      "account_id": "acc_4bb96864dc49",
+      "office_name": "Mulatol Office",
+      "display_name": "VIP",
+      "token_name": "Mulatol Office",
+      "ip": "103.141.174.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-10-13T09:22:34.182Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    },
+    {
+      "id": 1,
+      "timestamp": "2026-10-13T09:08:28.139Z",
+      "account_id": "acc_b89825a06ee3",
+      "office_name": "Cahartala Mor",
+      "display_name": "Vip",
+      "token_name": "Cahartala Mor",
+      "ip": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "status": "success"
+    }
+  ]
+}
